@@ -1,41 +1,33 @@
-package id_27344.q4;
+package id_27344.q5;
 
-public class Payment extends Service {
+public class Payment extends Charge {
 
-    private String paymentMethod;
-    private String paymentDate;
+    private String paymentMode;
+    private String transactionId;
 
-    // SETTER + GETTER (paymentMethod)
-    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
-    public String getPaymentMethod() { return paymentMethod; }
+    // Setters
+    public void setPaymentMode(String paymentMode) { this.paymentMode = paymentMode; }
+    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
 
-    // SETTER + GETTER (paymentDate)
-    public void setPaymentDate(String paymentDate) { this.paymentDate = paymentDate; }
-    public String getPaymentDate() { return paymentDate; }
+    // Getters
+    public String getPaymentMode() { return paymentMode; }
+    public String getTransactionId() { return transactionId; }
 
-    public Payment(int id, String createdDate, String updatedDate,
-                   String hotelName, String address, String phoneNumber, String email,
-                   int roomNumber, String roomType, double pricePerNight,
-                   String customerName, String customerEmail, String contactNumber,
-                   String bookingDate, String checkInDate, String checkOutDate,
-                   String serviceName, double serviceCost,
-                   String paymentMethod, String paymentDate) {
+    public Payment(int id, String createdDate, String updatedDate, String companyName, String address, String phoneNumber,
+                   String branchName, String locationCode, String vehicleType, String registrationNumber, double dailyRate,
+                   String customerName, String licenseNumber, String contactNumber,
+                   String rentalDate, String returnDate, int rentalDays,
+                   double rentalCharge, double penaltyCharge,
+                   String paymentMode, String transactionId) {
+        super(id, createdDate, updatedDate, companyName, address, phoneNumber, branchName, locationCode,
+                vehicleType, registrationNumber, dailyRate, customerName, licenseNumber, contactNumber,
+                rentalDate, returnDate, rentalDays, rentalCharge, penaltyCharge);
 
-        super(id, createdDate, updatedDate,
-                hotelName, address, phoneNumber, email,
-                roomNumber, roomType, pricePerNight,
-                customerName, customerEmail, contactNumber,
-                bookingDate, checkInDate, checkOutDate,
-                serviceName, serviceCost);
+        if (paymentMode.trim().isEmpty()) throw new RentalDataException("Payment mode cannot be empty");
+        if (transactionId.trim().isEmpty()) throw new RentalDataException("Transaction ID cannot be empty");
 
-        if (paymentMethod == null || paymentMethod.trim().isEmpty())
-            throw new HotelDataException("Payment method cannot be empty");
-
-        if (paymentDate == null || paymentDate.trim().isEmpty())
-            throw new HotelDataException("Payment date cannot be empty");
-
-        this.paymentMethod = paymentMethod;
-        this.paymentDate = paymentDate;
+        this.paymentMode = paymentMode;
+        this.transactionId = transactionId;
     }
 }
 

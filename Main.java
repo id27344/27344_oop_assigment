@@ -1,4 +1,4 @@
-package id_27344.q4;
+package id_27344.q5;
 
 import id_27344.utils.OutputHelper;
 
@@ -10,80 +10,68 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        OutputHelper.printWithID("=== Welcome to Hotel Reservation System ===");
+        OutputHelper.printWithID("=== Welcome to Vehicle Rental System ===");
 
-        // ================== Hotel Info ==================
-        int id = InputHelper.readInt(scanner, "Enter Hotel ID (>0): ");
+        // ================== Company Info ==================
+        int id = InputHelper.readInt(scanner, "Enter Company ID (>0): ");
         String createdDate = InputHelper.readDate(scanner, "Enter Created Date (YYYY-MM-DD): ");
         String updatedDate = InputHelper.readDate(scanner, "Enter Updated Date (YYYY-MM-DD): ");
-        String hotelName = InputHelper.readName(scanner, "Enter Hotel Name: ");
-        String address = InputHelper.readString(scanner, "Enter Hotel Address: ");
-        String phone = InputHelper.readPhone(scanner, "Enter Hotel Phone (10 digits): ");
-        String email = InputHelper.readEmail(scanner, "Enter Hotel Email: ");
+        String companyName = InputHelper.readString(scanner, "Enter Company Name: ");
+        String address = InputHelper.readString(scanner, "Enter Company Address: ");
+        String phoneNumber = InputHelper.readPhone(scanner, "Enter Company Phone (10 digits): ");
 
-        // ================== Room Info ==================
-        int roomNumber = InputHelper.readInt(scanner, "Enter Room Number: ");
-        String roomType = InputHelper.readText(scanner, "Enter Room Type: ");
-        double pricePerNight = InputHelper.readDouble(scanner, "Enter Price Per Night (>0): ");
-        while (pricePerNight <= 0) {
-            OutputHelper.printWithID("Price must be greater than 0.");
-            pricePerNight = InputHelper.readDouble(scanner, "Enter Price Per Night (>0): ");
+        // ================== Branch Info ==================
+        String branchName = InputHelper.readString(scanner, "Enter Branch Name: ");
+        String locationCode = InputHelper.readCode(scanner, "Enter Location Code (≥3 chars): ");
+
+        // ================== Vehicle Info ==================
+        String vehicleType = InputHelper.readString(scanner, "Enter Vehicle Type: ");
+        String registrationNumber = InputHelper.readString(scanner, "Enter Vehicle Registration Number: ");
+        double dailyRate = InputHelper.readDouble(scanner, "Enter Vehicle Daily Rate (>0): ");
+        while (dailyRate <= 0) {
+            System.out.println("Daily rate must be greater than 0.");
+            dailyRate = InputHelper.readDouble(scanner, "Enter Vehicle Daily Rate (>0): ");
         }
 
         // ================== Customer Info ==================
-        String customerName = InputHelper.readName(scanner, "Enter Customer Name: ");
-        String customerEmail = InputHelper.readEmail(scanner, "Enter Customer Email: ");
+        String customerName = InputHelper.readString(scanner, "Enter Customer Name: ");
+        String licenseNumber = InputHelper.readString(scanner, "Enter Customer License Number: ");
         String contactNumber = InputHelper.readPhone(scanner, "Enter Customer Contact Number (10 digits): ");
 
-        // ================== Booking Info ==================
-        String bookingDate = InputHelper.readDate(scanner, "Enter Booking Date (YYYY-MM-DD): ");
-        String checkInDate = InputHelper.readDate(scanner, "Enter Check-In Date (YYYY-MM-DD): ");
-        String checkOutDate = InputHelper.readDate(scanner, "Enter Check-Out Date (YYYY-MM-DD): ");
-
-        // ================== Service Info ==================
-        String serviceName = InputHelper.readText(scanner, "Enter Service Name: ");
-        double serviceCost = InputHelper.readDouble(scanner, "Enter Service Cost (>0): ");
-        while (serviceCost <= 0) {
-            OutputHelper.printWithID("Service cost must be greater than 0.");
-            serviceCost = InputHelper.readDouble(scanner, "Enter Service Cost (>0): ");
+        // ================== Rental Info ==================
+        String rentalDate = InputHelper.readDate(scanner, "Enter Rental Date (YYYY-MM-DD): ");
+        String returnDate = InputHelper.readDate(scanner, "Enter Return Date (YYYY-MM-DD): ");
+        int rentalDays = InputHelper.readInt(scanner, "Enter Rental Days (>0): ");
+        while (rentalDays <= 0) {
+            System.out.println("Rental days must be greater than 0.");
+            rentalDays = InputHelper.readInt(scanner, "Enter Rental Days (>0): ");
         }
+
+        // ================== Charge Info ==================
+        double rentalCharge = InputHelper.readDouble(scanner, "Enter Rental Charge (≥0): ");
+        double penaltyCharge = InputHelper.readDouble(scanner, "Enter Penalty Charge (≥0): ");
 
         // ================== Payment Info ==================
-        String paymentMethod = InputHelper.readText(scanner, "Enter Payment Method: ");
-        String paymentDate = InputHelper.readDate(scanner, "Enter Payment Date (YYYY-MM-DD): ");
+        String paymentMode = InputHelper.readString(scanner, "Enter Payment Mode: ");
+        String transactionId = InputHelper.readString(scanner, "Enter Transaction ID: ");
 
-        // ================== Bill Info ==================
-        double roomCharge = pricePerNight; // assuming 1 night for simplicity
-        double serviceCharge = serviceCost;
-        double totalBill = roomCharge + serviceCharge;
-
-        // ================== Feedback Info ==================
-        int rating;
-        while (true) {
-            rating = InputHelper.readInt(scanner, "Enter Feedback Rating (1-5): ");
-            if (rating >= 1 && rating <= 5) break;
-            OutputHelper.printWithID("Rating must be between 1 and 5.");
-        }
-        String comments = InputHelper.readText(scanner, "Enter Feedback Comments: ");
-
-        // ================== Create ReservationRecord ==================
-        ReservationRecord record = new ReservationRecord(
+        // ================== Create RentalRecord ==================
+        RentalRecord record = new RentalRecord(
                 id, createdDate, updatedDate,
-                hotelName, address, phone, email,
-                roomNumber, roomType, pricePerNight,
-                customerName, customerEmail, contactNumber,
-                bookingDate, checkInDate, checkOutDate,
-                serviceName, serviceCost,
-                paymentMethod, paymentDate,
-                roomCharge, serviceCharge,
-                rating, comments
+                companyName, address, phoneNumber,
+                branchName, locationCode,
+                vehicleType, registrationNumber, dailyRate,
+                customerName, licenseNumber, contactNumber,
+                rentalDate, returnDate, rentalDays,
+                rentalCharge, penaltyCharge,
+                paymentMode, transactionId
         );
 
-
         // ================== Display ==================
-        OutputHelper.printWithID("\n=== Reservation Record Created Successfully ===\n");
+        OutputHelper.printWithID("\n=== Vehicle Rental Record Created Successfully ===\n");
         record.displayRecord();
+
+        scanner.close();
     }
 }
-
 

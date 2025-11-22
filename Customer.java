@@ -1,43 +1,32 @@
-package id_27344.q4;
+package id_27344.q5;
 
-public class Customer extends Room {
+public class Customer extends Vehicle {
 
     private String customerName;
-    private String customerEmail;
+    private String licenseNumber;
     private String contactNumber;
 
-    // SETTER + GETTER (customerName)
+    // Setters
     public void setCustomerName(String customerName) { this.customerName = customerName; }
-    public String getCustomerName() { return customerName; }
-
-    // SETTER + GETTER (customerEmail)
-    public void setCustomerEmail(String customerEmail) { this.customerEmail = customerEmail; }
-    public String getCustomerEmail() { return customerEmail; }
-
-    // SETTER + GETTER (contactNumber)
+    public void setLicenseNumber(String licenseNumber) { this.licenseNumber = licenseNumber; }
     public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
+
+    // Getters
+    public String getCustomerName() { return customerName; }
+    public String getLicenseNumber() { return licenseNumber; }
     public String getContactNumber() { return contactNumber; }
 
-    public Customer(int id, String createdDate, String updatedDate,
-                    String hotelName, String address, String phoneNumber, String email,
-                    int roomNumber, String roomType, double pricePerNight,
-                    String customerName, String customerEmail, String contactNumber) {
+    public Customer(int id, String createdDate, String updatedDate, String companyName, String address, String phoneNumber,
+                    String branchName, String locationCode, String vehicleType, String registrationNumber, double dailyRate,
+                    String customerName, String licenseNumber, String contactNumber) {
+        super(id, createdDate, updatedDate, companyName, address, phoneNumber, branchName, locationCode, vehicleType, registrationNumber, dailyRate);
 
-        super(id, createdDate, updatedDate,
-                hotelName, address, phoneNumber, email,
-                roomNumber, roomType, pricePerNight);
-
-        if (customerName == null || customerName.trim().isEmpty())
-            throw new HotelDataException("Customer name cannot be empty");
-
-        if (customerEmail == null || !customerEmail.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$"))
-            throw new HotelDataException("Invalid customer email");
-
-        if (contactNumber == null || !contactNumber.matches("\\d{10}"))
-            throw new HotelDataException("Contact number must be 10 digits");
+        if (customerName.trim().isEmpty()) throw new RentalDataException("Customer name cannot be empty");
+        if (licenseNumber.trim().isEmpty()) throw new RentalDataException("License number cannot be empty");
+        if (!contactNumber.matches("\\d{10}")) throw new RentalDataException("Contact number must be 10 digits");
 
         this.customerName = customerName;
-        this.customerEmail = customerEmail;
+        this.licenseNumber = licenseNumber;
         this.contactNumber = contactNumber;
     }
 }
