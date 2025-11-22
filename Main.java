@@ -1,75 +1,76 @@
-package id_27344.q5;
+package id_27344.q6;
 
 import id_27344.utils.OutputHelper;
 
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
-        OutputHelper.printWithID("=== Welcome to Vehicle Rental System ===");
+        OutputHelper.printWithID("=== Welcome to Banking System ===");
 
-        // ================== Company Info ==================
-        int id = InputHelper.readInt(scanner, "Enter Company ID (>0): ");
+        // ================== Bank Info ==================
+        int bankId = InputHelper.readInt(scanner, "Enter Bank ID (>0): ");
         String createdDate = InputHelper.readDate(scanner, "Enter Created Date (YYYY-MM-DD): ");
         String updatedDate = InputHelper.readDate(scanner, "Enter Updated Date (YYYY-MM-DD): ");
-        String companyName = InputHelper.readString(scanner, "Enter Company Name: ");
-        String address = InputHelper.readString(scanner, "Enter Company Address: ");
-        String phoneNumber = InputHelper.readPhone(scanner, "Enter Company Phone (10 digits): ");
-
-        // ================== Branch Info ==================
-        String branchName = InputHelper.readString(scanner, "Enter Branch Name: ");
-        String locationCode = InputHelper.readCode(scanner, "Enter Location Code (≥3 chars): ");
-
-        // ================== Vehicle Info ==================
-        String vehicleType = InputHelper.readString(scanner, "Enter Vehicle Type: ");
-        String registrationNumber = InputHelper.readString(scanner, "Enter Vehicle Registration Number: ");
-        double dailyRate = InputHelper.readDouble(scanner, "Enter Vehicle Daily Rate (>0): ");
-        while (dailyRate <= 0) {
-            System.out.println("Daily rate must be greater than 0.");
-            dailyRate = InputHelper.readDouble(scanner, "Enter Vehicle Daily Rate (>0): ");
+        String bankName = InputHelper.readName(scanner, "Enter Bank Name: ");
+        String branchCode;
+        while (true) {
+            branchCode = InputHelper.readString(scanner, "Enter Branch Code (≥3 chars): ");
+            if (branchCode.length() >= 3) break;
+            OutputHelper.printWithID("Branch code must be at least 3 characters. Try again.");
         }
+        String address = InputHelper.readString(scanner, "Enter Bank Address: ");
+
+        // ================== Account Info ==================
+        String accountNumber = InputHelper.readString(scanner, "Enter Account Number: ");
+        String accountType = InputHelper.readString(scanner, "Enter Account Type: ");
+        double balance = InputHelper.readDouble(scanner, "Enter Account Balance (≥0): ");
 
         // ================== Customer Info ==================
-        String customerName = InputHelper.readString(scanner, "Enter Customer Name: ");
-        String licenseNumber = InputHelper.readString(scanner, "Enter Customer License Number: ");
-        String contactNumber = InputHelper.readPhone(scanner, "Enter Customer Contact Number (10 digits): ");
+        String customerName = InputHelper.readName(scanner, "Enter Customer Name: ");
+        String customerEmail = InputHelper.readEmail(scanner, "Enter Customer Email: ");
+        String customerPhone = InputHelper.readPhone(scanner, "Enter Customer Phone (10 digits): ");
 
-        // ================== Rental Info ==================
-        String rentalDate = InputHelper.readDate(scanner, "Enter Rental Date (YYYY-MM-DD): ");
-        String returnDate = InputHelper.readDate(scanner, "Enter Return Date (YYYY-MM-DD): ");
-        int rentalDays = InputHelper.readInt(scanner, "Enter Rental Days (>0): ");
-        while (rentalDays <= 0) {
-            System.out.println("Rental days must be greater than 0.");
-            rentalDays = InputHelper.readInt(scanner, "Enter Rental Days (>0): ");
-        }
+        // ================== Transaction Info ==================
+        String transactionId = InputHelper.readString(scanner, "Enter Transaction ID: ");
+        String transactionType = InputHelper.readString(scanner, "Enter Transaction Type: ");
+        double amount = InputHelper.readDouble(scanner, "Enter Transaction Amount (>0): ");
 
-        // ================== Charge Info ==================
-        double rentalCharge = InputHelper.readDouble(scanner, "Enter Rental Charge (≥0): ");
-        double penaltyCharge = InputHelper.readDouble(scanner, "Enter Penalty Charge (≥0): ");
+        // ================== Deposit Info ==================
+        double depositAmount = InputHelper.readDouble(scanner, "Enter Deposit Amount (>0): ");
+        String depositDate = InputHelper.readDate(scanner, "Enter Deposit Date (YYYY-MM-DD): ");
+
+        // ================== Withdrawal Info ==================
+        double withdrawalAmount = InputHelper.readDouble(scanner, "Enter Withdrawal Amount (>0): ");
+        String withdrawalDate = InputHelper.readDate(scanner, "Enter Withdrawal Date (YYYY-MM-DD): ");
+
+        // ================== Loan Info ==================
+        double loanAmount = InputHelper.readDouble(scanner, "Enter Loan Amount (>0): ");
+        double interestRate = InputHelper.readDouble(scanner, "Enter Loan Interest Rate (%): ");
+        int duration = InputHelper.readInt(scanner, "Enter Loan Duration (in years): ");
 
         // ================== Payment Info ==================
-        String paymentMode = InputHelper.readString(scanner, "Enter Payment Mode: ");
-        String transactionId = InputHelper.readString(scanner, "Enter Transaction ID: ");
+        double paymentAmount = InputHelper.readDouble(scanner, "Enter Payment Amount (>0): ");
+        String paymentDate = InputHelper.readDate(scanner, "Enter Payment Date (YYYY-MM-DD): ");
 
-        // ================== Create RentalRecord ==================
-        RentalRecord record = new RentalRecord(
-                id, createdDate, updatedDate,
-                companyName, address, phoneNumber,
-                branchName, locationCode,
-                vehicleType, registrationNumber, dailyRate,
-                customerName, licenseNumber, contactNumber,
-                rentalDate, returnDate, rentalDays,
-                rentalCharge, penaltyCharge,
-                paymentMode, transactionId
+        // ================== Create AccountRecord ==================
+        AccountRecord accountRecord = new AccountRecord(
+                bankId, createdDate, updatedDate,
+                bankName, branchCode, address,
+                accountNumber, accountType, balance,
+                customerName, customerEmail, customerPhone,
+                transactionId, transactionType, amount,
+                depositAmount, depositDate,
+                withdrawalAmount, withdrawalDate,
+                loanAmount, interestRate, duration,
+                paymentAmount, paymentDate
         );
 
         // ================== Display ==================
-        OutputHelper.printWithID("\n=== Vehicle Rental Record Created Successfully ===\n");
-        record.displayRecord();
+        OutputHelper.printWithID("\n=== Account Record Created Successfully ===\n");
+        accountRecord.displayRecord();
 
         scanner.close();
     }
