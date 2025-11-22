@@ -1,6 +1,10 @@
-package id_27344.q1;
+package id_27344.q2;
 
 import id_27344.utils.OutputHelper;
+
+import java.util.Scanner;
+
+import java.util.Scanner;
 
 import java.util.Scanner;
 
@@ -27,43 +31,6 @@ public class InputHelper {
     }
 
 
-    public static String readDate(Scanner scanner, String prompt) {
-        String value;
-        while (true) {
-            OutputHelper.printWithID(prompt);
-            value = scanner.nextLine().trim();
-            // Regex: 4 digits-2 digits-2 digits
-            if (value.matches("\\d{4}-\\d{2}-\\d{2}")) break;
-            OutputHelper.printWithID("Invalid date format! Please use YYYY-MM-DD.");
-        }
-        return value;
-    }
-
-    public static String readText(Scanner scanner, String prompt) {
-        String value;
-        while (true) {
-            OutputHelper.printWithID(prompt);
-            value = scanner.nextLine().trim();
-            // Allow letters, numbers, space, . , ; : -
-            if (value.matches("[A-Za-z0-9 .,;:-]+")) break;
-            OutputHelper.printWithID("Invalid input! Only letters, numbers and . , ; : - are allowed.");
-        }
-        return value;
-    }
-
-
-    public static String readName(Scanner scanner, String prompt) {
-        String value;
-        while (true) {
-            OutputHelper.printWithID(prompt);
-            value = scanner.nextLine().trim();
-            if (value.matches("[A-Za-z ]+")) break;
-            OutputHelper.printWithID("Invalid input! Only letters and spaces are allowed.");
-        }
-        return value;
-    }
-
-
     public static double readDouble(Scanner scanner, String prompt) {
         double value;
         while (true) {
@@ -73,7 +40,7 @@ public class InputHelper {
                 scanner.nextLine(); // consume newline
                 break;
             } else {
-                OutputHelper.printWithID("Invalid input! Please enter a number.");
+                OutputHelper.printWithID("Invalid input! Enter a number.");
                 scanner.nextLine();
             }
         }
@@ -84,9 +51,20 @@ public class InputHelper {
         String value;
         while (true) {
             OutputHelper.printWithID(prompt);
-            value = scanner.nextLine();
-            if (!value.trim().isEmpty()) break;
+            value = scanner.nextLine().trim();
+            if (!value.isEmpty()) break;
             OutputHelper.printWithID("Input cannot be empty!");
+        }
+        return value;
+    }
+
+    public static String readName(Scanner scanner, String prompt) {
+        String value;
+        while (true) {
+            OutputHelper.printWithID(prompt);
+            value = scanner.nextLine().trim();
+            if (value.matches("[A-Za-z ]+")) break;
+            OutputHelper.printWithID("Invalid! Only letters and spaces are allowed.");
         }
         return value;
     }
@@ -111,25 +89,17 @@ public class InputHelper {
         return value;
     }
 
-    public static String readGender(Scanner scanner, String prompt) {
+    public static String readDate(Scanner scanner, String prompt) {
         String value;
         while (true) {
-            value = readString(scanner, prompt);
-            if (value.equalsIgnoreCase("Male") || value.equalsIgnoreCase("Female") || value.equalsIgnoreCase("Other")) break;
-            OutputHelper.printWithID("Gender must be Male, Female, or Other!");
-        }
-        return value;
-    }
-
-    public static String readShift(Scanner scanner, String prompt) {
-        String value;
-        while (true) {
-            value = readString(scanner, prompt);
-            if (value.equalsIgnoreCase("Day") || value.equalsIgnoreCase("Night")) break;
-            OutputHelper.printWithID("Shift must be Day or Night!");
+            OutputHelper.printWithID(prompt);
+            value = scanner.nextLine().trim();
+            if (value.matches("\\d{4}-\\d{2}-\\d{2}")) break;
+            OutputHelper.printWithID("Invalid date! Use YYYY-MM-DD.");
         }
         return value;
     }
 }
+
 
 

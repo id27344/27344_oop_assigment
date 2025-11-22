@@ -1,8 +1,10 @@
-package id_27344.q1;
+package id_27344.q2;
 
 import id_27344.utils.OutputHelper;
 
 import java.util.Scanner;
+
+
 
 
 
@@ -12,102 +14,98 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        OutputHelper.printWithID("=== Welcome to Hospital Management System ===");
+        OutputHelper.printWithID("=== Welcome to School Management System ===");
 
-        // ================== Hospital Info ==================
-        int id = InputHelper.readInt(scanner, "Enter Hospital ID (>0): ");
+        // ================== School Info ==================
+        int id = InputHelper.readInt(scanner, "Enter School ID (>0): ");
         String createdDate = InputHelper.readDate(scanner, "Enter Created Date (YYYY-MM-DD): ");
         String updatedDate = InputHelper.readDate(scanner, "Enter Updated Date (YYYY-MM-DD): ");
-        String hospitalName = InputHelper.readName(scanner, "Enter Hospital Name: ");
-        String address = InputHelper.readString(scanner, "Enter Hospital Address: ");
-        String phone = InputHelper.readPhone(scanner, "Enter Hospital Phone (10 digits): ");
-        String email = InputHelper.readEmail(scanner, "Enter Hospital Email: ");
+        String schoolName = InputHelper.readName(scanner, "Enter School Name: ");
+        String address = InputHelper.readString(scanner, "Enter School Address: ");
+        String phone = InputHelper.readPhone(scanner, "Enter School Phone (10 digits): ");
+        String email = InputHelper.readEmail(scanner, "Enter School Email: ");
 
         // ================== Department Info ==================
         String departmentName = InputHelper.readName(scanner, "Enter Department Name: ");
-
         String departmentCode;
         while (true) {
-            departmentCode = InputHelper.readString(scanner, "Enter Department Code (≥3 chars): ");
-            if (departmentCode.length() >= 3) break;
-            OutputHelper.printWithID("Department code must be at least 3 characters. Try again.");
+            departmentCode = InputHelper.readString(scanner, "Enter Department Code (≥3 chars, alphanumeric): ");
+            if (departmentCode.matches("[A-Za-z0-9]{3,}")) break;
+            OutputHelper.printWithID("Invalid code! Must be alphanumeric and ≥3 characters.");
         }
 
-        // ================== Doctor Info ==================
-        String doctorName = InputHelper.readName(scanner, "Enter Doctor Name: ");
-        String specialization = InputHelper.readName(scanner, "Enter Doctor Specialization: ");
-        String doctorEmail = InputHelper.readEmail(scanner, "Enter Doctor Email: ");
-        String doctorPhone = InputHelper.readPhone(scanner, "Enter Doctor Phone (10 digits): ");
+        // ================== Teacher Info ==================
+        String teacherName = InputHelper.readName(scanner, "Enter Teacher Name: ");
+        String subject = InputHelper.readString(scanner, "Enter Subject: ");
+        String teacherEmail = InputHelper.readEmail(scanner, "Enter Teacher Email: ");
+        String teacherPhone = InputHelper.readPhone(scanner, "Enter Teacher Phone (10 digits): ");
 
-        // ================== Nurse Info ==================
-        String nurseName = InputHelper.readName(scanner, "Enter Nurse Name: ");
-        String shift = InputHelper.readShift(scanner, "Enter Nurse Shift (Day/Night): ");
-        int yearsOfExp = InputHelper.readInt(scanner, "Enter Nurse Years of Experience (≥0): ");
-        while (yearsOfExp < 0) {
-            OutputHelper.printWithID("Years of experience cannot be negative.");
-            yearsOfExp = InputHelper.readInt(scanner, "Enter Nurse Years of Experience (≥0): ");
+        // ================== Student Info ==================
+        String studentName = InputHelper.readName(scanner, "Enter Student Name: ");
+        int rollNumber = InputHelper.readInt(scanner, "Enter Roll Number (>0): ");
+        while (rollNumber <= 0) {
+            OutputHelper.printWithID("Roll number must be >0.");
+            rollNumber = InputHelper.readInt(scanner, "Enter Roll Number (>0): ");
+        }
+        String grade = InputHelper.readName(scanner, "Enter Grade: ");
+        String studentPhone = InputHelper.readPhone(scanner, "Enter Student Contact Number: ");
+
+        // ================== Course Info ==================
+        String courseName = InputHelper.readString(scanner, "Enter Course Name: ");
+        String courseCode = InputHelper.readString(scanner, "Enter Course Code: ");
+        int creditHours = InputHelper.readInt(scanner, "Enter Credit Hours (>0): ");
+        while (creditHours <= 0) {
+            OutputHelper.printWithID("Credit hours must be >0.");
+            creditHours = InputHelper.readInt(scanner, "Enter Credit Hours (>0): ");
         }
 
-
-        // ================== Patient Info ==================
-        String patientName = InputHelper.readName(scanner, "Enter Patient Name: ");
-        int age = InputHelper.readInt(scanner, "Enter Patient Age (>0): ");
-        while (age <= 0) {
-            OutputHelper.printWithID("Age must be greater than 0.");
-            age = InputHelper.readInt(scanner, "Enter Patient Age (>0): ");
+        // ================== Exam Info ==================
+        String examName = InputHelper.readString(scanner, "Enter Exam Name: ");
+        int maxMarks = InputHelper.readInt(scanner, "Enter Max Marks (>0): ");
+        while (maxMarks <= 0) {
+            OutputHelper.printWithID("Max marks must be >0.");
+            maxMarks = InputHelper.readInt(scanner, "Enter Max Marks (>0): ");
         }
-        String gender = InputHelper.readGender(scanner, "Enter Patient Gender (Male/Female/Other): ");
-        String contactNumber = InputHelper.readPhone(scanner, "Enter Patient Contact Number (10 digits): ");
+        String examDate = InputHelper.readDate(scanner, "Enter Exam Date (YYYY-MM-DD): ");
 
-        // ================== Admission Info ==================
-        String admissionDate = InputHelper.readDate(scanner, "Enter Admission Date (YYYY-MM-DD): ");
-        int roomNumber = InputHelper.readInt(scanner, "Enter Room Number: ");
-        double roomCharges = InputHelper.readDouble(scanner, "Enter Room Charges (>0): ");
-        while (roomCharges <= 0) {
-            OutputHelper.printWithID("Room charges must be greater than 0.");
-            roomCharges = InputHelper.readDouble(scanner, "Enter Room Charges (>0): ");
+        // ================== Result Info ==================
+        int obtainedMarks = InputHelper.readInt(scanner, "Enter Obtained Marks (>=0): ");
+        while (obtainedMarks < 0) {
+            OutputHelper.printWithID("Obtained marks cannot be negative.");
+            obtainedMarks = InputHelper.readInt(scanner, "Enter Obtained Marks (>=0): ");
         }
+        String remarks = InputHelper.readString(scanner, "Enter Remarks: ");
 
-        // ================== Treatment Info ==================
-        String diagnosis = InputHelper.readText(scanner, "Enter Diagnosis: ");
-        String treatmentGiven = InputHelper.readName(scanner, "Enter Treatment Given: ");
-        double treatmentCost = InputHelper.readDouble(scanner, "Enter Treatment Cost (>0): ");
-        while (treatmentCost <= 0) {
-            OutputHelper.printWithID("Treatment cost must be greater than 0.");
-            treatmentCost = InputHelper.readDouble(scanner, "Enter Treatment Cost (>0): ");
+        // ================== Fee Info ==================
+        double tuitionFee = InputHelper.readDouble(scanner, "Enter Tuition Fee (≥0): ");
+        while (tuitionFee < 0) {
+            OutputHelper.printWithID("Tuition fee cannot be negative.");
+            tuitionFee = InputHelper.readDouble(scanner, "Enter Tuition Fee (≥0): ");
         }
-
-        // ================== Bill Info ==================
-        double doctorFee = InputHelper.readDouble(scanner, "Enter Doctor Fee (≥0): ");
-        while (doctorFee < 0) {
-            OutputHelper.printWithID("Doctor fee cannot be negative.");
-            doctorFee = InputHelper.readDouble(scanner, "Enter Doctor Fee (≥0): ");
+        double examFee = InputHelper.readDouble(scanner, "Enter Exam Fee (≥0): ");
+        while (examFee < 0) {
+            OutputHelper.printWithID("Exam fee cannot be negative.");
+            examFee = InputHelper.readDouble(scanner, "Enter Exam Fee (≥0): ");
         }
 
-        double medicineCost = InputHelper.readDouble(scanner, "Enter Medicine Cost (≥0): ");
-        while (medicineCost < 0) {
-            OutputHelper.printWithID("Medicine cost cannot be negative.");
-            medicineCost = InputHelper.readDouble(scanner, "Enter Medicine Cost (≥0): ");
-        }
-
-        // ================== Create HospitalRecord ==================
-        HospitalRecord record = new HospitalRecord(
+        // ================== Create StudentRecord ==================
+        StudentRecord record = new StudentRecord(
                 id, createdDate, updatedDate,
-                hospitalName, address, phone, email,
+                schoolName, address, phone, email,
                 departmentName, departmentCode,
-                doctorName, specialization, doctorEmail, doctorPhone,
-                nurseName, shift, yearsOfExp,
-                patientName, age, gender, contactNumber,
-                admissionDate, roomNumber, roomCharges,
-                diagnosis, treatmentGiven, treatmentCost,
-                doctorFee, medicineCost
+                teacherName, subject, teacherEmail, teacherPhone,
+                studentName, rollNumber, grade, studentPhone,
+                courseName, courseCode, creditHours,
+                examName, maxMarks, examDate,
+                obtainedMarks, remarks,
+                tuitionFee, examFee
         );
 
         // ================== Display ==================
-        OutputHelper.printWithID("\n=== Hospital Record Created Successfully ===\n");
+        OutputHelper.printWithID("\n=== Student Record Created Successfully ===\n");
         record.displayRecord();
-
     }
 }
+
 
 

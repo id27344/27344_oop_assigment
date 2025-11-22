@@ -1,4 +1,4 @@
-package id_27344.q1;
+package id_27344.q2;
 
 public class Entity {
 
@@ -6,7 +6,7 @@ public class Entity {
     private String createdDate;
     private String updatedDate;
 
-    // Getters and Setters
+    // Getters & Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -18,22 +18,14 @@ public class Entity {
 
     // Constructor with validation
     public Entity(int id, String createdDate, String updatedDate) {
-        if (id <= 0) {
-            throw new HospitalDataException("ID must be greater than 0.");
-        }
-        if (createdDate == null || createdDate.trim().isEmpty()) {
-            throw new HospitalDataException("Created date cannot be empty.");
-        }
-        if (updatedDate == null || updatedDate.trim().isEmpty()) {
-            throw new HospitalDataException("Updated date cannot be empty.");
-        }
+        if (id <= 0) throw new SchoolDataException("ID must be greater than 0.");
+        if (createdDate == null || createdDate.trim().isEmpty()) throw new SchoolDataException("Created date cannot be empty.");
+        if (updatedDate == null || updatedDate.trim().isEmpty()) throw new SchoolDataException("Updated date cannot be empty.");
 
-        // Assign values after validation
         this.id = id;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
 }
-
 
 
