@@ -1,5 +1,9 @@
 # OOP Assignments Repository
 
+**Student Name:** GENGA Chris  
+**Student ID:** 27344  
+**Course:** Object-Oriented Programming (OOP)
+
 This repository contains all assignments for my Object-Oriented Programming (OOP) course. The main purpose of this repository is to demonstrate the concepts and applications of OOP, including classes, inheritance, encapsulation, polymorphism, and abstraction.
 
 Each assignment corresponds to a specific question, and the code is organized into subpackages named `q1`, `q2`, etc., for clarity and ease of navigation.
