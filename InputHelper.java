@@ -1,40 +1,41 @@
-package id_27344.q3;
-
+package id_27344.q4;
 import id_27344.utils.OutputHelper;
 
 import java.util.Scanner;
 
 public class InputHelper {
 
-    public static int readInt(Scanner scanner, String prompt, int minValue) {
+    public static int readInt(Scanner scanner, String prompt) {
         int value;
         while (true) {
             OutputHelper.printWithID(prompt);
-            if (scanner.hasNextInt()) {
-                value = scanner.nextInt();
-                scanner.nextLine(); // consume newline
-                if (value >= minValue) break;
-                OutputHelper.printWithID("Value must be at least " + minValue + ".");
-            } else {
-                OutputHelper.printWithID("Invalid input! Please enter a number.");
-                scanner.nextLine(); // clear invalid input
+            try {
+                value = Integer.parseInt(scanner.nextLine());
+                if (value <= 0) {
+                    OutputHelper.printWithID("Value must be greater than 0. Try again.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                OutputHelper.printWithID("Invalid input! Enter a whole number.");
             }
         }
         return value;
     }
 
-    public static double readDouble(Scanner scanner, String prompt, double minValue) {
+    public static double readDouble(Scanner scanner, String prompt) {
         double value;
         while (true) {
             OutputHelper.printWithID(prompt);
-            if (scanner.hasNextDouble()) {
-                value = scanner.nextDouble();
-                scanner.nextLine(); // consume newline
-                if (value >= minValue) break;
-                OutputHelper.printWithID("Value must be at least " + minValue + ".");
-            } else {
-                OutputHelper.printWithID("Invalid input! Please enter a number.");
-                scanner.nextLine(); // clear invalid input
+            try {
+                value = Double.parseDouble(scanner.nextLine());
+                if (value < 0) {
+                    OutputHelper.printWithID("Value cannot be negative. Try again.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                OutputHelper.printWithID("Invalid input! Enter a valid number.");
             }
         }
         return value;
@@ -46,42 +47,92 @@ public class InputHelper {
             OutputHelper.printWithID(prompt);
             value = scanner.nextLine().trim();
             if (!value.isEmpty()) break;
-            OutputHelper.printWithID("Input cannot be empty!");
+            OutputHelper.printWithID("Input cannot be empty. Try again.");
         }
         return value;
     }
 
     public static String readName(Scanner scanner, String prompt) {
-        String value;
+        String name;
         while (true) {
-            value = readString(scanner, prompt);
-            if (value.matches("[A-Za-z ]+")) break;
+            OutputHelper.printWithID(prompt);
+            name = scanner.nextLine().trim();
+            if (!name.isEmpty() && name.matches("[A-Za-z ]+")) break;
             OutputHelper.printWithID("Invalid input! Only letters and spaces are allowed.");
         }
-        return value;
+        return name;
     }
 
     public static String readEmail(Scanner scanner, String prompt) {
-        String value;
+        String email;
         while (true) {
-            value = readString(scanner, prompt);
-            if (value.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) break;
-            OutputHelper.printWithID("Invalid email format!");
+            OutputHelper.printWithID(prompt);
+            email = scanner.nextLine().trim();
+            if (email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) break;
+            OutputHelper.printWithID("Invalid email format. Try again.");
         }
-        return value;
+        return email;
     }
 
     public static String readPhone(Scanner scanner, String prompt) {
+        String phone;
+        while (true) {
+            OutputHelper.printWithID(prompt);
+            phone = scanner.nextLine().trim();
+            if (phone.matches("\\d{10}")) break;
+            OutputHelper.printWithID("Phone number must be exactly 10 digits. Try again.");
+        }
+        return phone;
+    }
+
+    public static String readDate(Scanner scanner, String prompt) {
+        String date;
+        while (true) {
+            OutputHelper.printWithID(prompt);
+            date = scanner.nextLine().trim();
+            if (date.matches("\\d{4}-\\d{2}-\\d{2}")) break;
+            OutputHelper.printWithID("Invalid date! Use YYYY-MM-DD format.");
+        }
+        return date;
+    }
+
+    public static String readRoomType(Scanner scanner, String prompt) {
+        String type;
+        while (true) {
+            OutputHelper.printWithID(prompt);
+            type = scanner.nextLine().trim();
+            if (type.equalsIgnoreCase("Single") || type.equalsIgnoreCase("Double") || type.equalsIgnoreCase("Suite")) break;
+            OutputHelper.printWithID("Invalid room type! Must be Single, Double, or Suite.");
+        }
+        return type;
+    }
+
+    public static int readNumberOfGuests(Scanner scanner, String prompt) {
+        int guests;
+        while (true) {
+            OutputHelper.printWithID(prompt);
+            try {
+                guests = Integer.parseInt(scanner.nextLine());
+                if (guests > 0) break;
+                OutputHelper.printWithID("Number of guests must be greater than 0.");
+            } catch (NumberFormatException e) {
+                OutputHelper.printWithID("Invalid input! Enter a valid integer.");
+            }
+        }
+        return guests;
+    }
+
+    public static String readText(Scanner scanner, String prompt) {
         String value;
         while (true) {
-            value = readString(scanner, prompt);
-            if (value.matches("\\d{10}")) break;
-            OutputHelper.printWithID("Phone must be 10 digits!");
+            System.out.print(prompt);
+            value = scanner.nextLine().trim();
+            // Allow letters, numbers, space, . , ; : -
+            if (value.matches("[A-Za-z0-9 .,;:-]+")) break;
+            System.out.println("Invalid input! Only letters, numbers and . , ; : - are allowed.");
         }
         return value;
     }
-
 }
-
 
 

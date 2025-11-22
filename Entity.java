@@ -1,4 +1,4 @@
-package id_27344.q3;
+package id_27344.q4;
 
 public class Entity {
 
@@ -6,26 +6,25 @@ public class Entity {
     private String createdDate;
     private String updatedDate;
 
-    // Getters and Setters
-    public int getId() { return id; }
+    // SETTERS
     public void setId(int id) { this.id = id; }
-
-    public String getCreatedDate() { return createdDate; }
     public void setCreatedDate(String createdDate) { this.createdDate = createdDate; }
-
-    public String getUpdatedDate() { return updatedDate; }
     public void setUpdatedDate(String updatedDate) { this.updatedDate = updatedDate; }
 
-    // Constructor with validation
+    // GETTERS
+    public int getId() { return id; }
+    public String getCreatedDate() { return createdDate; }
+    public String getUpdatedDate() { return updatedDate; }
+
+    // CONSTRUCTOR WITH VALIDATION
     public Entity(int id, String createdDate, String updatedDate) {
-        if (id <= 0) throw new PayrollDataException("ID must be greater than 0.");
-        if (createdDate == null || createdDate.trim().isEmpty()) throw new PayrollDataException("Created date cannot be empty.");
-        if (updatedDate == null || updatedDate.trim().isEmpty()) throw new PayrollDataException("Updated date cannot be empty.");
+        if (id <= 0) throw new HotelDataException("ID must be greater than 0");
+        if (createdDate == null || createdDate.trim().isEmpty()) throw new HotelDataException("Created date cannot be empty");
+        if (updatedDate == null || updatedDate.trim().isEmpty()) throw new HotelDataException("Updated date cannot be empty");
 
         this.id = id;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
 }
-
 

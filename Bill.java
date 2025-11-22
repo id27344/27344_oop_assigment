@@ -1,43 +1,52 @@
-package id_27344.q1;
+package id_27344.q4;
 
-public class Bill extends Treatment {
+public class Bill extends Payment {
 
-    private double doctorFee;
-    private double medicineCost;
+    private double roomCharge;
+    private double serviceCharge;
     private double totalBill;
 
-    public double getDoctorFee() { return doctorFee; }
-    public void setDoctorFee(double doctorFee) { this.doctorFee = doctorFee; }
+    // SETTER + GETTER (roomCharge)
+    public void setRoomCharge(double roomCharge) { this.roomCharge = roomCharge; }
+    public double getRoomCharge() { return roomCharge; }
 
-    public double getMedicineCost() { return medicineCost; }
-    public void setMedicineCost(double medicineCost) { this.medicineCost = medicineCost; }
+    // SETTER + GETTER (serviceCharge)
+    public void setServiceCharge(double serviceCharge) { this.serviceCharge = serviceCharge; }
+    public double getServiceCharge() { return serviceCharge; }
 
+    // GETTER (totalBill)
     public double getTotalBill() { return totalBill; }
 
     public Bill(int id, String createdDate, String updatedDate,
-                String hospitalName, String address, String phoneNumber, String email,
-                String departmentName, String departmentCode,
-                String doctorName, String specialization, String doctorEmail, String phone,
-                String nurseName, String shift, int yearsOfExperience,
-                String patientName, int age, String gender, String contactNumber,
-                String admissionDate, int roomNumber, double roomCharges,
-                String diagnosis, String treatmentGiven, double treatmentCost,
-                double doctorFee, double medicineCost) {
-        super(id, createdDate, updatedDate, hospitalName, address, phoneNumber, email,
-                departmentName, departmentCode, doctorName, specialization, doctorEmail, phone,
-                nurseName, shift, yearsOfExperience, patientName, age, gender, contactNumber,
-                admissionDate, roomNumber, roomCharges, diagnosis, treatmentGiven, treatmentCost);
+                String hotelName, String address, String phoneNumber, String email,
+                int roomNumber, String roomType, double pricePerNight,
+                String customerName, String customerEmail, String contactNumber,
+                String bookingDate, String checkInDate, String checkOutDate,
+                String serviceName, double serviceCost,
+                String paymentMethod, String paymentDate,
+                double roomCharge, double serviceCharge) {
 
-        if (doctorFee < 0) throw new HospitalDataException("Doctor fee cannot be negative.");
-        if (medicineCost < 0) throw new HospitalDataException("Medicine cost cannot be negative.");
+        super(id, createdDate, updatedDate,
+                hotelName, address, phoneNumber, email,
+                roomNumber, roomType, pricePerNight,
+                customerName, customerEmail, contactNumber,
+                bookingDate, checkInDate, checkOutDate,
+                serviceName, serviceCost,
+                paymentMethod, paymentDate);
 
-        this.doctorFee = doctorFee;
-        this.medicineCost = medicineCost;
+        if (roomCharge <= 0)
+            throw new HotelDataException("Room charge must be greater than zero");
+
+        if (serviceCharge < 0)
+            throw new HotelDataException("Service charge cannot be negative");
+
+        this.roomCharge = roomCharge;
+        this.serviceCharge = serviceCharge;
         this.totalBill = generateBill();
     }
 
     public double generateBill() {
-        return getRoomCharges() + getTreatmentCost() + doctorFee + medicineCost;
+        return roomCharge + serviceCharge;
     }
 }
 
