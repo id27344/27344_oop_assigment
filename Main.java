@@ -1,4 +1,4 @@
-package id_27344.q6;
+package id_27344.q7;
 
 import id_27344.utils.OutputHelper;
 
@@ -8,71 +8,62 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        OutputHelper.printWithID("=== Welcome to Banking System ===");
+        OutputHelper.printWithID("=== Welcome to Real Estate Management System ===");
 
-        // ================== Bank Info ==================
-        int bankId = InputHelper.readInt(scanner, "Enter Bank ID (>0): ");
+        // ================== Entity/Agency Info ==================
+        int id = InputHelper.readInt(scanner, "Enter Entity ID (>0): ");
         String createdDate = InputHelper.readDate(scanner, "Enter Created Date (YYYY-MM-DD): ");
         String updatedDate = InputHelper.readDate(scanner, "Enter Updated Date (YYYY-MM-DD): ");
-        String bankName = InputHelper.readName(scanner, "Enter Bank Name: ");
-        String branchCode;
-        while (true) {
-            branchCode = InputHelper.readString(scanner, "Enter Branch Code (≥3 chars): ");
-            if (branchCode.length() >= 3) break;
-            OutputHelper.printWithID("Branch code must be at least 3 characters. Try again.");
-        }
-        String address = InputHelper.readString(scanner, "Enter Bank Address: ");
+        String agencyName = InputHelper.readString(scanner, "Enter Agency Name: ");
+        String location = InputHelper.readString(scanner, "Enter Agency Location: ");
+        String agencyPhone = InputHelper.readPhone(scanner, "Enter Agency Phone (10 digits): ");
 
-        // ================== Account Info ==================
-        String accountNumber = InputHelper.readString(scanner, "Enter Account Number: ");
-        String accountType = InputHelper.readString(scanner, "Enter Account Type: ");
-        double balance = InputHelper.readDouble(scanner, "Enter Account Balance (≥0): ");
+        // ================== Agent Info ==================
+        String agentName = InputHelper.readString(scanner, "Enter Agent Name: ");
+        String agentEmail = InputHelper.readEmail(scanner, "Enter Agent Email: ");
+        String licenseNumber = InputHelper.readString(scanner, "Enter License Number: ");
 
-        // ================== Customer Info ==================
-        String customerName = InputHelper.readName(scanner, "Enter Customer Name: ");
-        String customerEmail = InputHelper.readEmail(scanner, "Enter Customer Email: ");
-        String customerPhone = InputHelper.readPhone(scanner, "Enter Customer Phone (10 digits): ");
+        // ================== Property Info ==================
+        String propertyCode = InputHelper.readString(scanner, "Enter Property Code: ");
+        String propertyType = InputHelper.readString(scanner, "Enter Property Type: ");
+        double price = InputHelper.readDouble(scanner, "Enter Property Price (>0): ");
 
-        // ================== Transaction Info ==================
-        String transactionId = InputHelper.readString(scanner, "Enter Transaction ID: ");
-        String transactionType = InputHelper.readString(scanner, "Enter Transaction Type: ");
-        double amount = InputHelper.readDouble(scanner, "Enter Transaction Amount (>0): ");
+        // ================== Seller Info ==================
+        String sellerName = InputHelper.readString(scanner, "Enter Seller Name: ");
+        String sellerContact = InputHelper.readPhone(scanner, "Enter Seller Contact Number (10 digits): ");
 
-        // ================== Deposit Info ==================
-        double depositAmount = InputHelper.readDouble(scanner, "Enter Deposit Amount (>0): ");
-        String depositDate = InputHelper.readDate(scanner, "Enter Deposit Date (YYYY-MM-DD): ");
+        // ================== Buyer Info ==================
+        String buyerName = InputHelper.readString(scanner, "Enter Buyer Name: ");
+        String buyerEmail = InputHelper.readEmail(scanner, "Enter Buyer Email: ");
 
-        // ================== Withdrawal Info ==================
-        double withdrawalAmount = InputHelper.readDouble(scanner, "Enter Withdrawal Amount (>0): ");
-        String withdrawalDate = InputHelper.readDate(scanner, "Enter Withdrawal Date (YYYY-MM-DD): ");
-
-        // ================== Loan Info ==================
-        double loanAmount = InputHelper.readDouble(scanner, "Enter Loan Amount (>0): ");
-        double interestRate = InputHelper.readDouble(scanner, "Enter Loan Interest Rate (%): ");
-        int duration = InputHelper.readInt(scanner, "Enter Loan Duration (in years): ");
+        // ================== Agreement Info ==================
+        String agreementDate = InputHelper.readDate(scanner, "Enter Agreement Date (YYYY-MM-DD): ");
+        String terms = InputHelper.readString(scanner, "Enter Agreement Terms: ");
 
         // ================== Payment Info ==================
         double paymentAmount = InputHelper.readDouble(scanner, "Enter Payment Amount (>0): ");
         String paymentDate = InputHelper.readDate(scanner, "Enter Payment Date (YYYY-MM-DD): ");
 
-        // ================== Create AccountRecord ==================
-        AccountRecord accountRecord = new AccountRecord(
-                bankId, createdDate, updatedDate,
-                bankName, branchCode, address,
-                accountNumber, accountType, balance,
-                customerName, customerEmail, customerPhone,
-                transactionId, transactionType, amount,
-                depositAmount, depositDate,
-                withdrawalAmount, withdrawalDate,
-                loanAmount, interestRate, duration,
-                paymentAmount, paymentDate
+        // ================== Commission Info ==================
+        double commissionRate = InputHelper.readDouble(scanner, "Enter Commission Rate (%): ");
+
+        // ================== Create RealEstateRecord ==================
+        RealEstateRecord record = new RealEstateRecord(
+                id, createdDate, updatedDate,
+                agencyName, location, agencyPhone,
+                agentName, agentEmail, licenseNumber,
+                propertyCode, propertyType, price,
+                sellerName, sellerContact,
+                buyerName, buyerEmail,
+                agreementDate, terms,
+                paymentAmount, paymentDate,
+                commissionRate
         );
 
-        // ================== Display ==================
-        OutputHelper.printWithID("\n=== Account Record Created Successfully ===\n");
-        accountRecord.displayRecord();
-
-        scanner.close();
+        // ================== Display Record ==================
+        OutputHelper.printWithID("\n=== Real Estate Record Created Successfully ===\n");
+        record.displayRecord();
     }
 }
+
 

@@ -1,10 +1,6 @@
-package id_27344.q6;
+package id_27344.q7;
 
 import id_27344.utils.OutputHelper;
-
-import java.util.Scanner;
-
-
 
 import java.util.Scanner;
 
@@ -13,16 +9,16 @@ public class InputHelper {
     public static int readInt(Scanner scanner, String prompt) {
         int value;
         while (true) {
-            OutputHelper.printWithID(prompt);
+            System.out.print(prompt);
             try {
                 value = Integer.parseInt(scanner.nextLine());
-                if (value <= 0) {
-                    OutputHelper.printWithID("Value cannot be zero or negative. Try again.");
+                if (value < 1) {
+                    OutputHelper.printWithID("Value cannot be negative. Try again.");
                     continue;
                 }
                 break;
             } catch (NumberFormatException e) {
-                OutputHelper.printWithID("Invalid number. Try again.");
+                OutputHelper.printWithID("Invalid input. Enter an integer.");
             }
         }
         return value;
@@ -31,7 +27,7 @@ public class InputHelper {
     public static double readDouble(Scanner scanner, String prompt) {
         double value;
         while (true) {
-            OutputHelper.printWithID(prompt);
+            System.out.print(prompt);
             try {
                 value = Double.parseDouble(scanner.nextLine());
                 if (value < 0) {
@@ -40,41 +36,35 @@ public class InputHelper {
                 }
                 break;
             } catch (NumberFormatException e) {
-                OutputHelper.printWithID("Invalid number. Try again.");
+                OutputHelper.printWithID("Invalid input. Enter a number.");
             }
         }
         return value;
     }
 
     public static String readString(Scanner scanner, String prompt) {
-        String value;
+        String input;
         while (true) {
-            OutputHelper.printWithID(prompt);
-            value = scanner.nextLine().trim();
-            if (!value.isEmpty()) break;
-            OutputHelper.printWithID("Input cannot be empty. Try again.");
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                OutputHelper.printWithID("Input cannot be empty. Try again.");
+                continue;
+            }
+            break;
         }
-        return value;
-    }
-
-    public static String readName(Scanner scanner, String prompt) {
-        String name;
-        while (true) {
-            OutputHelper.printWithID(prompt);
-            name = scanner.nextLine().trim();
-            if (!name.isEmpty() && name.matches("[a-zA-Z ]+")) break;
-            OutputHelper.printWithID("Name must contain only letters and spaces. Try again.");
-        }
-        return name;
+        return input;
     }
 
     public static String readEmail(Scanner scanner, String prompt) {
         String email;
         while (true) {
-            OutputHelper.printWithID(prompt);
-            email = scanner.nextLine().trim();
-            if (email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) break;
-            OutputHelper.printWithID("Invalid email format. Try again.");
+            email = readString(scanner, prompt);
+            if (!email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
+                OutputHelper.printWithID("Invalid email format. Try again.");
+                continue;
+            }
+            break;
         }
         return email;
     }
@@ -82,25 +72,19 @@ public class InputHelper {
     public static String readPhone(Scanner scanner, String prompt) {
         String phone;
         while (true) {
-            OutputHelper.printWithID(prompt);
-            phone = scanner.nextLine().trim();
-            if (phone.matches("\\d{10}")) break;
-            OutputHelper.printWithID("Phone number must be 10 digits. Try again.");
+            phone = readString(scanner, prompt);
+            if (!phone.matches("\\d{10}")) {
+                OutputHelper.printWithID("Phone number must be 10 digits. Try again.");
+                continue;
+            }
+            break;
         }
         return phone;
     }
 
     public static String readDate(Scanner scanner, String prompt) {
-        String date;
-        while (true) {
-            OutputHelper.printWithID(prompt);
-            date = scanner.nextLine().trim();
-            if (date.matches("\\d{4}-\\d{2}-\\d{2}")) break;
-            OutputHelper.printWithID("Date must be in format YYYY-MM-DD. Try again.");
-        }
-        return date;
+        return readString(scanner, prompt); // Could add regex validation if needed
     }
 }
-
 
 
