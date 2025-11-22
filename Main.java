@@ -1,63 +1,60 @@
-package id_27344.q8;
-
+package id_27344.q9;
 import id_27344.utils.OutputHelper;
 
 import java.util.Scanner;
 
-
-
 public class Main {
-
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
-        OutputHelper.printWithID("=== Library Management System ===");
+        OutputHelper.printWithID("\n=== Ticket Record Created Successfully ===");
 
-        int id = InputHelper.readInt(scanner, "Enter Library ID (>0): ");
-        String createdDate = InputHelper.readDate(scanner, "Enter Created Date (YYYY-MM-DD): ");
-        String updatedDate = InputHelper.readDate(scanner, "Enter Updated Date (YYYY-MM-DD): ");
-        String libraryName = InputHelper.readText(scanner, "Enter Library Name: ");
-        String location = InputHelper.readText(scanner, "Enter Library Location: ");
-        String phoneNumber = InputHelper.readPhone(scanner, "Enter Library Phone (10 digits): ");
 
-        String sectionName = InputHelper.readText(scanner, "Enter Section Name: ");
-        String sectionCode = InputHelper.readSectionCode(scanner, "Enter Section Code (≥3 chars): ");
+        int id = InputHelper.readInt(scanner, "Enter ID (>0): ");
+        String createdDate = InputHelper.readString(scanner, "Enter Created Date (YYYY-MM-DD): ");
+        String updatedDate = InputHelper.readString(scanner, "Enter Updated Date (YYYY-MM-DD): ");
 
-        String title = InputHelper.readText(scanner, "Enter Book Title: ");
-        String author = InputHelper.readText(scanner, "Enter Author Name: ");
-        String ISBN = InputHelper.readISBN(scanner, "Enter Book ISBN (≥10 chars): ");
+        String airlineName = InputHelper.readString(scanner, "Enter Airline Name: ");
+        String address = InputHelper.readString(scanner, "Enter Airline Address: ");
+        String email = InputHelper.readEmail(scanner, "Enter Airline Contact Email: ");
 
-        String memberName = InputHelper.readText(scanner, "Enter Member Name: ");
-        int memberId = InputHelper.readInt(scanner, "Enter Member ID (>0): ");
-        String memberContact = InputHelper.readPhone(scanner, "Enter Member Contact Number (10 digits): ");
+        String flightNumber = InputHelper.readString(scanner, "Enter Flight Number: ");
+        String destination = InputHelper.readString(scanner, "Enter Destination: ");
+        String departureTime = InputHelper.readString(scanner, "Enter Departure Time: ");
 
-        String borrowDate = InputHelper.readDate(scanner, "Enter Borrow Date (YYYY-MM-DD): ");
-        String returnDate = InputHelper.readDate(scanner, "Enter Return Date (YYYY-MM-DD): ");
+        String passengerName = InputHelper.readString(scanner, "Enter Passenger Name: ");
+        String passportNumber = InputHelper.readString(scanner, "Enter Passport Number: ");
+        String nationality = InputHelper.readString(scanner, "Enter Nationality: ");
 
-        double fineAmount = InputHelper.readDouble(scanner, "Enter Fine Amount (≥0): ");
-        int daysLate = InputHelper.readInt(scanner, "Enter Days Late (≥0): ");
+        String seatNumber = InputHelper.readString(scanner, "Enter Seat Number: ");
+        String seatType;
+        while (true) {
+            seatType = InputHelper.readString(scanner, "Enter Seat Type (Economy/Business): ");
+            if (seatType.equalsIgnoreCase("Economy") || seatType.equalsIgnoreCase("Business")) break;
+            System.out.println("Seat type must be 'Economy' or 'Business'");
+        }
 
-        String paymentDate = InputHelper.readDate(scanner, "Enter Payment Date (YYYY-MM-DD): ");
-        String paymentMode = InputHelper.readText(scanner, "Enter Payment Mode: ");
+        String ticketNumber = InputHelper.readString(scanner, "Enter Ticket Number: ");
+        double price = InputHelper.readDouble(scanner, "Enter Ticket Price (>0): ");
 
-        double totalFine = InputHelper.readDouble(scanner, "Enter Total Fine (>0): ");
+        double baggageWeight = InputHelper.readDouble(scanner, "Enter Baggage Weight (kg): ");
+        double baggageFee = InputHelper.readDouble(scanner, "Enter Baggage Fee: ");
 
-        LibraryRecord record = new LibraryRecord(
-                id, createdDate, updatedDate,
-                libraryName, location, phoneNumber,
-                sectionName, sectionCode,
-                title, author, ISBN,
-                memberName, memberId, memberContact,
-                borrowDate, returnDate, fineAmount, daysLate,
-                paymentDate, paymentMode, totalFine
+        String paymentDate = InputHelper.readString(scanner, "Enter Payment Date (YYYY-MM-DD): ");
+        String paymentMode = InputHelper.readString(scanner, "Enter Payment Mode: ");
+
+        TicketRecord record = new TicketRecord(id, createdDate, updatedDate,
+                airlineName, address, email,
+                flightNumber, destination, departureTime,
+                passengerName, passportNumber, nationality,
+                seatNumber, seatType,
+                ticketNumber, price,
+                baggageWeight, baggageFee,
+                paymentDate, paymentMode
         );
 
-        OutputHelper.printWithID("\n=== Library Record Created Successfully ===\n");
-        record.displayRecord();  // Make sure displayRecord() also uses OutputHelper.printWithID()
-
-        scanner.close();
+        System.out.println("\n=== Ticket Record Created Successfully ===");
+        record.displayRecord();
     }
 }
-
 
