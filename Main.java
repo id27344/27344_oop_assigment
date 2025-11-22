@@ -1,12 +1,8 @@
-package id_27344.q2;
+package id_27344.q3;
 
 import id_27344.utils.OutputHelper;
 
 import java.util.Scanner;
-
-
-
-
 
 public class Main {
 
@@ -14,98 +10,77 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        OutputHelper.printWithID("=== Welcome to School Management System ===");
+        OutputHelper.printWithID("=== Welcome to Employee Payroll System ===");
 
-        // ================== School Info ==================
-        int id = InputHelper.readInt(scanner, "Enter School ID (>0): ");
-        String createdDate = InputHelper.readDate(scanner, "Enter Created Date (YYYY-MM-DD): ");
-        String updatedDate = InputHelper.readDate(scanner, "Enter Updated Date (YYYY-MM-DD): ");
-        String schoolName = InputHelper.readName(scanner, "Enter School Name: ");
-        String address = InputHelper.readString(scanner, "Enter School Address: ");
-        String phone = InputHelper.readPhone(scanner, "Enter School Phone (10 digits): ");
-        String email = InputHelper.readEmail(scanner, "Enter School Email: ");
+        // ================== Company Info ==================
+        int id = InputHelper.readInt(scanner, "Enter Company ID (>0): ", 1);
+        String createdDate = InputHelper.readString(scanner, "Enter Created Date (YYYY-MM-DD): ");
+        String updatedDate = InputHelper.readString(scanner, "Enter Updated Date (YYYY-MM-DD): ");
+        String companyName = InputHelper.readName(scanner, "Enter Company Name: ");
+        String address = InputHelper.readString(scanner, "Enter Company Address: ");
+        String phone = InputHelper.readPhone(scanner, "Enter Company Phone (10 digits): ");
+        String email = InputHelper.readEmail(scanner, "Enter Company Email: ");
 
         // ================== Department Info ==================
         String departmentName = InputHelper.readName(scanner, "Enter Department Name: ");
         String departmentCode;
         while (true) {
-            departmentCode = InputHelper.readString(scanner, "Enter Department Code (≥3 chars, alphanumeric): ");
-            if (departmentCode.matches("[A-Za-z0-9]{3,}")) break;
-            OutputHelper.printWithID("Invalid code! Must be alphanumeric and ≥3 characters.");
+            departmentCode = InputHelper.readString(scanner, "Enter Department Code (≥3 chars): ");
+            if (departmentCode.length() >= 3) break;
+            OutputHelper.printWithID("Department code must be at least 3 characters.");
         }
 
-        // ================== Teacher Info ==================
-        String teacherName = InputHelper.readName(scanner, "Enter Teacher Name: ");
-        String subject = InputHelper.readString(scanner, "Enter Subject: ");
-        String teacherEmail = InputHelper.readEmail(scanner, "Enter Teacher Email: ");
-        String teacherPhone = InputHelper.readPhone(scanner, "Enter Teacher Phone (10 digits): ");
+        // ================== Manager Info ==================
+        String managerName = InputHelper.readName(scanner, "Enter Manager Name: ");
+        String managerEmail = InputHelper.readEmail(scanner, "Enter Manager Email: ");
+        String managerPhone = InputHelper.readPhone(scanner, "Enter Manager Phone (10 digits): ");
 
-        // ================== Student Info ==================
-        String studentName = InputHelper.readName(scanner, "Enter Student Name: ");
-        int rollNumber = InputHelper.readInt(scanner, "Enter Roll Number (>0): ");
-        while (rollNumber <= 0) {
-            OutputHelper.printWithID("Roll number must be >0.");
-            rollNumber = InputHelper.readInt(scanner, "Enter Roll Number (>0): ");
-        }
-        String grade = InputHelper.readName(scanner, "Enter Grade: ");
-        String studentPhone = InputHelper.readPhone(scanner, "Enter Student Contact Number: ");
+        // ================== Employee Info ==================
+        String employeeName = InputHelper.readName(scanner, "Enter Employee Name: ");
+        int employeeId = InputHelper.readInt(scanner, "Enter Employee ID (>0): ", 1);
+        String designation = InputHelper.readString(scanner, "Enter Employee Designation: ");
+        String contactNumber = InputHelper.readPhone(scanner, "Enter Employee Contact Number (10 digits): ");
 
-        // ================== Course Info ==================
-        String courseName = InputHelper.readString(scanner, "Enter Course Name: ");
-        String courseCode = InputHelper.readString(scanner, "Enter Course Code: ");
-        int creditHours = InputHelper.readInt(scanner, "Enter Credit Hours (>0): ");
-        while (creditHours <= 0) {
-            OutputHelper.printWithID("Credit hours must be >0.");
-            creditHours = InputHelper.readInt(scanner, "Enter Credit Hours (>0): ");
+        // ================== Attendance Info ==================
+        int totalDays = InputHelper.readInt(scanner, "Enter Total Days: ", 0);
+        int presentDays = InputHelper.readInt(scanner, "Enter Present Days: ", 0);
+        while (presentDays > totalDays) {
+            System.out.println("Present days cannot exceed total days.");
+            presentDays = InputHelper.readInt(scanner, "Enter Present Days: ", 0);
         }
+        int leaveDays = InputHelper.readInt(scanner, "Enter Leave Days: ", 0);
 
-        // ================== Exam Info ==================
-        String examName = InputHelper.readString(scanner, "Enter Exam Name: ");
-        int maxMarks = InputHelper.readInt(scanner, "Enter Max Marks (>0): ");
-        while (maxMarks <= 0) {
-            OutputHelper.printWithID("Max marks must be >0.");
-            maxMarks = InputHelper.readInt(scanner, "Enter Max Marks (>0): ");
-        }
-        String examDate = InputHelper.readDate(scanner, "Enter Exam Date (YYYY-MM-DD): ");
+        // ================== Allowances ==================
+        double housingAllowance = InputHelper.readDouble(scanner, "Enter Housing Allowance (≥0): ", 0);
+        double transportAllowance = InputHelper.readDouble(scanner, "Enter Transport Allowance (≥0): ", 0);
 
-        // ================== Result Info ==================
-        int obtainedMarks = InputHelper.readInt(scanner, "Enter Obtained Marks (>=0): ");
-        while (obtainedMarks < 0) {
-            OutputHelper.printWithID("Obtained marks cannot be negative.");
-            obtainedMarks = InputHelper.readInt(scanner, "Enter Obtained Marks (>=0): ");
-        }
-        String remarks = InputHelper.readString(scanner, "Enter Remarks: ");
+        // ================== Deductions ==================
+        double taxDeduction = InputHelper.readDouble(scanner, "Enter Tax Deduction (≥0): ", 0);
+        double loanDeduction = InputHelper.readDouble(scanner, "Enter Loan Deduction (≥0): ", 0);
 
-        // ================== Fee Info ==================
-        double tuitionFee = InputHelper.readDouble(scanner, "Enter Tuition Fee (≥0): ");
-        while (tuitionFee < 0) {
-            OutputHelper.printWithID("Tuition fee cannot be negative.");
-            tuitionFee = InputHelper.readDouble(scanner, "Enter Tuition Fee (≥0): ");
-        }
-        double examFee = InputHelper.readDouble(scanner, "Enter Exam Fee (≥0): ");
-        while (examFee < 0) {
-            OutputHelper.printWithID("Exam fee cannot be negative.");
-            examFee = InputHelper.readDouble(scanner, "Enter Exam Fee (≥0): ");
-        }
+        // ================== Salary Info ==================
+        double basicSalary = InputHelper.readDouble(scanner, "Enter Basic Salary (>0): ", 1);
 
-        // ================== Create StudentRecord ==================
-        StudentRecord record = new StudentRecord(
+        // ================== Create PayrollRecord ==================
+        PayrollRecord record = new PayrollRecord(
                 id, createdDate, updatedDate,
-                schoolName, address, phone, email,
+                companyName, address, phone, email,
                 departmentName, departmentCode,
-                teacherName, subject, teacherEmail, teacherPhone,
-                studentName, rollNumber, grade, studentPhone,
-                courseName, courseCode, creditHours,
-                examName, maxMarks, examDate,
-                obtainedMarks, remarks,
-                tuitionFee, examFee
+                managerName, managerEmail, managerPhone,
+                employeeName, employeeId, designation, contactNumber,
+                totalDays, presentDays, leaveDays,
+                housingAllowance, transportAllowance,
+                taxDeduction, loanDeduction,
+                basicSalary
         );
 
         // ================== Display ==================
-        OutputHelper.printWithID("\n=== Student Record Created Successfully ===\n");
+        OutputHelper.printWithID("\n=== Payroll Record Created Successfully ===\n");
         record.displayRecord();
     }
 }
+
+
 
 
 

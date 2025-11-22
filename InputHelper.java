@@ -1,27 +1,20 @@
-package id_27344.q2;
+package id_27344.q3;
 
 import id_27344.utils.OutputHelper;
 
 import java.util.Scanner;
 
-import java.util.Scanner;
-
-import java.util.Scanner;
-
 public class InputHelper {
 
-    public static int readInt(Scanner scanner, String prompt) {
+    public static int readInt(Scanner scanner, String prompt, int minValue) {
         int value;
         while (true) {
             OutputHelper.printWithID(prompt);
             if (scanner.hasNextInt()) {
                 value = scanner.nextInt();
                 scanner.nextLine(); // consume newline
-                if (value > 0) { // check if greater than 0
-                    break;
-                } else {
-                    OutputHelper.printWithID("Invalid input! Number must be greater than 0.");
-                }
+                if (value >= minValue) break;
+                OutputHelper.printWithID("Value must be at least " + minValue + ".");
             } else {
                 OutputHelper.printWithID("Invalid input! Please enter a number.");
                 scanner.nextLine(); // clear invalid input
@@ -30,18 +23,18 @@ public class InputHelper {
         return value;
     }
 
-
-    public static double readDouble(Scanner scanner, String prompt) {
+    public static double readDouble(Scanner scanner, String prompt, double minValue) {
         double value;
         while (true) {
             OutputHelper.printWithID(prompt);
             if (scanner.hasNextDouble()) {
                 value = scanner.nextDouble();
                 scanner.nextLine(); // consume newline
-                break;
+                if (value >= minValue) break;
+                OutputHelper.printWithID("Value must be at least " + minValue + ".");
             } else {
-                OutputHelper.printWithID("Invalid input! Enter a number.");
-                scanner.nextLine();
+                OutputHelper.printWithID("Invalid input! Please enter a number.");
+                scanner.nextLine(); // clear invalid input
             }
         }
         return value;
@@ -61,10 +54,9 @@ public class InputHelper {
     public static String readName(Scanner scanner, String prompt) {
         String value;
         while (true) {
-            OutputHelper.printWithID(prompt);
-            value = scanner.nextLine().trim();
+            value = readString(scanner, prompt);
             if (value.matches("[A-Za-z ]+")) break;
-            OutputHelper.printWithID("Invalid! Only letters and spaces are allowed.");
+            OutputHelper.printWithID("Invalid input! Only letters and spaces are allowed.");
         }
         return value;
     }
@@ -89,16 +81,6 @@ public class InputHelper {
         return value;
     }
 
-    public static String readDate(Scanner scanner, String prompt) {
-        String value;
-        while (true) {
-            OutputHelper.printWithID(prompt);
-            value = scanner.nextLine().trim();
-            if (value.matches("\\d{4}-\\d{2}-\\d{2}")) break;
-            OutputHelper.printWithID("Invalid date! Use YYYY-MM-DD.");
-        }
-        return value;
-    }
 }
 
 
