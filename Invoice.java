@@ -1,30 +1,31 @@
-package id_27344.q9;
+package id_27344.q10;
 
-public class Invoice extends Payment {
-    private double totalFare;
+public class Invoice extends Shipping {
 
-    // Getter
-    public double getTotalFare() { return totalFare; }
+    private double totalAmount;
 
-    // Method to calculate total fare
-    public void generateInvoice() {
-        totalFare = getPrice() + getBaggageFee();
-    }
+    public double getTotalAmount() { return totalAmount; }
 
     public Invoice(int id, String createdDate, String updatedDate,
-                   String airlineName, String address, String contactEmail,
-                   String flightNumber, String destination, String departureTime,
-                   String passengerName, String passportNumber, String nationality,
-                   String seatNumber, String seatType,
-                   String ticketNumber, double price,
-                   double baggageWeight, double baggageFee,
-                   String paymentDate, String paymentMode) {
-        super(id, createdDate, updatedDate, airlineName, address, contactEmail,
-                flightNumber, destination, departureTime,
-                passengerName, passportNumber, nationality,
-                seatNumber, seatType, ticketNumber, price,
-                baggageWeight, baggageFee, paymentDate, paymentMode);
-        generateInvoice();
+                   String storeName, String storeAddress, String email,
+                   String categoryName, String categoryCode,
+                   String productName, String productCode, double price,
+                   String customerName, String contactNumber, String address,
+                   String orderDate, String orderId,
+                   String paymentMethod, String paymentStatus,
+                   String shippingAddress, double shippingCost,
+                   double totalAmount) {
+
+        super(id, createdDate, updatedDate, storeName, storeAddress, email,
+                categoryName, categoryCode, productName, productCode, price,
+                customerName, contactNumber, address, orderDate, orderId,
+                paymentMethod, paymentStatus, shippingAddress, shippingCost);
+
+        if (totalAmount <= 0) {
+            throw new ShoppingDataException("Invoice amount must be greater than 0.");
+        }
+
+        this.totalAmount = totalAmount;
     }
 }
 

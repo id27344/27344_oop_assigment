@@ -1,38 +1,42 @@
-package id_27344.q6;
+package id_27344.q10;
 
-// Customer.java
-public class Customer extends Account {
+public class Customer extends Product {
+
     private String customerName;
-    private String email;
-    private String phoneNumber;
+    private String contactNumber;
+    private String address;
 
-    // Setters
-    public void setCustomerName(String customerName) { this.customerName = customerName; }
-    public void setEmail(String email) { this.email = email; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-
-    // Getters
     public String getCustomerName() { return customerName; }
-    public String getEmail() { return email; }
-    public String getPhoneNumber() { return phoneNumber; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
 
-    // Constructor
+    public String getContactNumber() { return contactNumber; }
+    public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
     public Customer(int id, String createdDate, String updatedDate,
-                    String bankName, String branchCode, String address,
-                    String accountNumber, String accountType, double balance,
-                    String customerName, String email, String phoneNumber) {
-        super(id, createdDate, updatedDate, bankName, branchCode, address, accountNumber, accountType, balance);
+                    String storeName, String storeAddress, String email,
+                    String categoryName, String categoryCode,
+                    String productName, String productCode, double price,
+                    String customerName, String contactNumber, String address) {
 
-        if (customerName.trim().isEmpty()) throw new BankingDataException("Customer name cannot be empty.");
-        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) throw new BankingDataException("Invalid email.");
-        if (!phoneNumber.matches("\\d{10}")) throw new BankingDataException("Phone must be 10 digits.");
+        super(id, createdDate, updatedDate, storeName, storeAddress, email,
+                categoryName, categoryCode, productName, productCode, price);
+
+        if (customerName.trim().isEmpty()) {
+            throw new ShoppingDataException("Customer name cannot be empty.");
+        }
+        if (contactNumber.trim().isEmpty()) {
+            throw new ShoppingDataException("Contact number cannot be empty.");
+        }
+        if (address.trim().isEmpty()) {
+            throw new ShoppingDataException("Customer address cannot be empty.");
+        }
 
         this.customerName = customerName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.contactNumber = contactNumber;
+        this.address = address;
     }
 }
-
-
-
 

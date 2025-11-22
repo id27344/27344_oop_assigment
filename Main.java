@@ -1,60 +1,88 @@
-package id_27344.q9;
-import id_27344.utils.OutputHelper;
+package id_27344.q10;
 
 import java.util.Scanner;
+import id_27344.utils.OutputHelper;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
-        OutputHelper.printWithID("\n=== Ticket Record Created Successfully ===");
+        OutputHelper.printWithID("=== Welcome to Online Shopping System ===");
 
+        // ================== Store Info ==================
+        int id = InputHelper.readInt(scanner, "Enter Store ID (>0): ");
+        String createdDate = InputHelper.readDate(scanner, "Enter Created Date (YYYY-MM-DD): ");
+        String updatedDate = InputHelper.readDate(scanner, "Enter Updated Date (YYYY-MM-DD): ");
+        String storeName = InputHelper.readString(scanner, "Enter Store Name: ");
+        String address = InputHelper.readString(scanner, "Enter Store Address: ");
+        String email = InputHelper.readEmail(scanner, "Enter Store Email: ");
 
-        int id = InputHelper.readInt(scanner, "Enter ID (>0): ");
-        String createdDate = InputHelper.readString(scanner, "Enter Created Date (YYYY-MM-DD): ");
-        String updatedDate = InputHelper.readString(scanner, "Enter Updated Date (YYYY-MM-DD): ");
+        Store store = new Store(id, createdDate, updatedDate, storeName, address, email);
 
-        String airlineName = InputHelper.readString(scanner, "Enter Airline Name: ");
-        String address = InputHelper.readString(scanner, "Enter Airline Address: ");
-        String email = InputHelper.readEmail(scanner, "Enter Airline Contact Email: ");
+        OutputHelper.printWithID("Store created successfully: " + store.getStoreName());
 
-        String flightNumber = InputHelper.readString(scanner, "Enter Flight Number: ");
-        String destination = InputHelper.readString(scanner, "Enter Destination: ");
-        String departureTime = InputHelper.readString(scanner, "Enter Departure Time: ");
-
-        String passengerName = InputHelper.readString(scanner, "Enter Passenger Name: ");
-        String passportNumber = InputHelper.readString(scanner, "Enter Passport Number: ");
-        String nationality = InputHelper.readString(scanner, "Enter Nationality: ");
-
-        String seatNumber = InputHelper.readString(scanner, "Enter Seat Number: ");
-        String seatType;
+        // ================== Category Info ==================
+        String categoryName = InputHelper.readString(scanner, "Enter Category Name: ");
+        String categoryCode;
         while (true) {
-            seatType = InputHelper.readString(scanner, "Enter Seat Type (Economy/Business): ");
-            if (seatType.equalsIgnoreCase("Economy") || seatType.equalsIgnoreCase("Business")) break;
-            System.out.println("Seat type must be 'Economy' or 'Business'");
+            categoryCode = InputHelper.readString(scanner, "Enter Category Code (≥3 chars): ");
+            if (categoryCode.length() >= 3) break;
+            OutputHelper.printWithID("Category code must be at least 3 characters. Try again.");
         }
+        Category category = new Category(id, createdDate, updatedDate, storeName, address, email, categoryName, categoryCode);
+        OutputHelper.printWithID("Category created: " + category.getCategoryName());
 
-        String ticketNumber = InputHelper.readString(scanner, "Enter Ticket Number: ");
-        double price = InputHelper.readDouble(scanner, "Enter Ticket Price (>0): ");
+        // ================== Product Info ==================
+        String productName = InputHelper.readString(scanner, "Enter Product Name: ");
+        String productCode = InputHelper.readString(scanner, "Enter Product Code: ");
+        double price = InputHelper.readDouble(scanner, "Enter Product Price (>0): ");
+        Product product = new Product(id, createdDate, updatedDate, storeName, address, email,
+                categoryName, categoryCode, productName, productCode, price);
+        OutputHelper.printWithID("Product created: " + product.getProductName());
 
-        double baggageWeight = InputHelper.readDouble(scanner, "Enter Baggage Weight (kg): ");
-        double baggageFee = InputHelper.readDouble(scanner, "Enter Baggage Fee: ");
+        // ================== Customer Info ==================
+        String customerName = InputHelper.readString(scanner, "Enter Customer Name: ");
+        String contactNumber = InputHelper.readPhone(scanner, "Enter Contact Number (10 digits): ");
+        String customerAddress = InputHelper.readString(scanner, "Enter Customer Address: ");
+        Customer customer = new Customer(id, createdDate, updatedDate, storeName, address, email,
+                categoryName, categoryCode, productName, productCode, price,
+                customerName, contactNumber, customerAddress);
+        OutputHelper.printWithID("Customer created: " + customer.getCustomerName());
 
-        String paymentDate = InputHelper.readString(scanner, "Enter Payment Date (YYYY-MM-DD): ");
-        String paymentMode = InputHelper.readString(scanner, "Enter Payment Mode: ");
+        // ================== Order Info ==================
+        String orderDate = InputHelper.readDate(scanner, "Enter Order Date (YYYY-MM-DD): ");
+        String orderId = InputHelper.readString(scanner, "Enter Order ID: ");
+        Order order = new Order(id, createdDate, updatedDate, storeName, address, email,
+                categoryName, categoryCode, productName, productCode, price,
+                customerName, contactNumber, customerAddress, orderDate, orderId);
+        OutputHelper.printWithID("Order created: " + order.getOrderId());
 
-        TicketRecord record = new TicketRecord(id, createdDate, updatedDate,
-                airlineName, address, email,
-                flightNumber, destination, departureTime,
-                passengerName, passportNumber, nationality,
-                seatNumber, seatType,
-                ticketNumber, price,
-                baggageWeight, baggageFee,
-                paymentDate, paymentMode
-        );
+        // ================== Payment Info ==================
+        String paymentMethod = InputHelper.readString(scanner, "Enter Payment Method: ");
+        String paymentStatus = InputHelper.readString(scanner, "Enter Payment Status: ");
+        Payment payment = new Payment(id, createdDate, updatedDate, storeName, address, email,
+                categoryName, categoryCode, productName, productCode, price,
+                customerName, contactNumber, customerAddress, orderDate, orderId,
+                paymentMethod, paymentStatus);
+        OutputHelper.printWithID("Payment processed: " + payment.getPaymentMethod());
 
-        System.out.println("\n=== Ticket Record Created Successfully ===");
-        record.displayRecord();
+        // ================== Shipping Info ==================
+        String shippingAddress = InputHelper.readString(scanner, "Enter Shipping Address: ");
+        double shippingCost = InputHelper.readDouble(scanner, "Enter Shipping Cost (≥0): ");
+        Shipping shipping = new Shipping(id, createdDate, updatedDate, storeName, address, email,
+                categoryName, categoryCode, productName, productCode, price,
+                customerName, contactNumber, customerAddress, orderDate, orderId,
+                paymentMethod, paymentStatus, shippingAddress, shippingCost);
+        OutputHelper.printWithID("Shipping set to: " + shipping.getShippingAddress());
+
+        // ================== Invoice & OrderRecord ==================
+        OrderRecord orderRecord = new OrderRecord(id, createdDate, updatedDate, storeName, address, email,
+                categoryName, categoryCode, productName, productCode, price,
+                customerName, contactNumber, customerAddress, orderDate, orderId,
+                paymentMethod, paymentStatus, shippingAddress, shippingCost);
+        OutputHelper.printWithID("Order Record created successfully!");
+        OutputHelper.printWithID("Total Amount: " + orderRecord.calculateTotalAmount());
     }
 }
 
